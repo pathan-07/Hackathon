@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gigs - FreelanceHub</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">FreelanceHub</div>
+            <nav class="nav-menu">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="profile.html" class="nav-link">Profile</a>
+                <a href="gigs.html" class="nav-link active">Gigs</a>
+                <a href="messaging.html" class="nav-link">Messages</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1>My Gigs</h1>
+                <button class="btn btn-primary" onclick="openGigModal()">Create New Gig</button>
+            </header>
+
+            <div class="gigs-grid">
+                <!-- Gig cards will be added here -->
+            </div>
+        </main>
+
+        <!-- Create Gig Modal -->
+        <div id="gigModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeGigModal()">&times;</span>
+                <h2>Create New Gig</h2>
+                <form id="gigForm" class="gig-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Gig Title" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="Price ($)" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create Gig</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="js/gigs.js"></script>
+</body>
+</html> 
