@@ -6,23 +6,8 @@ class App {
     }
 
     init() {
-        this.setupGigs();
         this.setupMessaging();
         this.setupProfile();
-    }
-
-    setupGigs() {
-        // Handle gig posting
-        const gigForm = document.getElementById('post-gig-form');
-        if (gigForm) {
-            gigForm.addEventListener('submit', (e) => this.handleGigSubmit(e));
-        }
-
-        // Handle gig filtering
-        const filterInputs = document.querySelectorAll('.filter-select');
-        filterInputs.forEach(input => {
-            input.addEventListener('change', () => this.filterGigs());
-        });
     }
 
     setupMessaging() {
@@ -44,21 +29,6 @@ class App {
         const profileForm = document.getElementById('profile-form');
         if (profileForm) {
             profileForm.addEventListener('submit', (e) => this.handleProfileUpdate(e));
-        }
-    }
-
-    async handleGigSubmit(e) {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        
-        try {
-            // Simulate API call
-            await this.saveGig(formData);
-            alert('Gig posted successfully!');
-            window.location.reload();
-        } catch (error) {
-            console.error('Failed to post gig:', error);
-            alert('Failed to post gig. Please try again.');
         }
     }
 
@@ -95,11 +65,6 @@ class App {
     }
 
     // Simulated API calls
-    async saveGig(formData) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log('Gig saved:', Object.fromEntries(formData));
-    }
-
     async sendMessage(message) {
         await new Promise(resolve => setTimeout(resolve, 500));
         console.log('Message sent:', message);
@@ -123,11 +88,6 @@ class App {
         `;
         messagesContainer.appendChild(messageElement);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
-
-    filterGigs() {
-        // Implement gig filtering logic
-        console.log('Filtering gigs...');
     }
 
     loadConversation(conversationElement) {
