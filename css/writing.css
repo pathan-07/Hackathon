@@ -33,7 +33,10 @@
 }
 
 .service-card {
-    background: var(--color-secondary);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: white;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: var(--shadow-md);
@@ -70,13 +73,39 @@
     margin-bottom: 1rem;
 }
 
-.service-card .price {
+.price-container {
+    margin-top: auto;
+    border-top: 1px solid var(--color-gray-200);
+}
+
+.price-link {
+    display: block;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.price-link:hover {
+    transform: translateY(-3px);
+}
+
+.price-link:hover .price {
+    background: var(--color-gray-200);
+}
+
+.price {
     display: block;
     padding: 1rem;
-    font-weight: bold;
     color: var(--color-primary);
+    font-weight: 600;
     border-top: 1px solid var(--color-gray-200);
-    background: var(--color-gray-100);
+    background-color: var(--color-gray-100);
+    transition: background-color 0.3s ease;
+}
+
+.price-link:hover .price {
+    background-color: var(--color-gray-200);
+    color: var(--color-primary);
 }
 
 /* Responsive Design */
