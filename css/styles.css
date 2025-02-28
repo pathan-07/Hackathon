@@ -133,25 +133,56 @@ body {
     overflow: hidden;
     margin-top: 70px;
     animation: scaleIn 1s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .banner-image {
+    position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: scaleIn 1.2s ease-out;
+    z-index: 1;
 }
 
 .banner-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    z-index: 2;
     text-align: center;
+    padding: 0 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.banner-content h1 {
+    font-size: 2.5rem;
     color: var(--color-secondary);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
     animation: fadeInUp 1s ease-out 0.5s;
     animation-fill-mode: both;
+}
+
+/* Add responsive styles for smaller screens */
+@media (max-width: 768px) {
+    .banner {
+        height: 400px;
+    }
+    
+    .banner-content h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner {
+        height: 300px;
+    }
+    
+    .banner-content h1 {
+        font-size: 1.5rem;
+    }
 }
 
 /* Form and Input Styles */
