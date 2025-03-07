@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Community</title>
+    <style>
+        :root {
+            --primary: #0b44efa8;
+            --secondary: #000000;
+            --accent: #ff0000;
+            --background: #F7FAFC;
+            --text: #1A202C;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr 300px;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background-color: var(--secondary);
+            padding: 20px;
+            color: white;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .right-panel {
+            background-color: white;
+            padding: 20px;
+            border-left: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .freelancer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .level-badge {
+            background: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .call-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .call-button:hover {
+            background: #4752C4;
+        }
+
+        .chat-group {
+            background: #F8F9FA;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .chat-group:hover {
+            background: #EDF2F7;
+        }
+
+        .chat-group h3, .chat-group p {
+            color: black;
+            margin: 0;
+        }
+
+        .chat-group h3 {
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .chat-group p {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .message-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .message-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #E2E8F0;
+            border-radius: 5px;
+        }
+
+        /* New Chat Styles */
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid #E2E8F0;
+            margin: -20px -20px 15px -20px;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .chat-header h2 {
+            margin: 0;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            background: #48BB78;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 12px 15px;
+            border-radius: 15px;
+            position: relative;
+            animation: messageSlide 0.3s ease-out;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.received {
+            background: #F7F9FC;
+            border-bottom-left-radius: 5px;
+            align-self: flex-start;
+        }
+
+        .message.sent {
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+            align-self: flex-end;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+
+        .message-header img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        .message-time {
+            font-size: 0.8em;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .message.sent .message-time {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .message-input-container {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #E2E8F0;
+            margin: 0 -20px -20px -20px;
+        }
+
+        .message-input {
+            display: flex;
+            gap: 10px;
+            background: #F7F9FC;
+            padding: 10px;
+            border-radius: 25px;
+        }
+
+        .message-input input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .message-input button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .message-input button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 10px;
+            color: #718096;
+            font-size: 0.9em;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background: #718096;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-4px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar - Community Groups -->
+        <div class="sidebar">
+            <h2>Community Groups</h2>
+            <div class="chat-group">
+                <h3>Web Development</h3>
+                <p>1,234 members</p>
+            </div>
+            <div class="chat-group">
+                <h3>UI/UX Design</h3>
+                <p>987 members</p>
+            </div>
+            <div class="chat-group">
+                <h3>Digital Marketing</h3>
+                <p>756 members</p>
+            </div>
+        </div>
+
+        <!-- Main Content - Freelancer Profiles -->
+        <div class="main-content">
+            <h1>Freelancers</h1>
+            
+            <div class="freelancer-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Faizan Pathan</h2>
+                    <span class="level-badge">Level 5</span>
+                </div>
+                <p>Full Stack Developer | 5 years experience</p>
+                <a href="Untitled-10000.html" class="call-button" style="text-decoration: none; display: inline-block;">View</a>
+            </div>
+
+            <div class="freelancer-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Saiyoni Shah</h2>
+                    <span class="level-badge">Level 4</span>
+                </div>
+                <p>UI/UX Designer | 3 years experience</p>
+                <a href="saiyoni profile.html" class="call-button" style="text-decoration: none; display: inline-block;">View</a>
+            </div>
+
+            <div class="freelancer-card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h2>Bhavy Pandya</h2>
+                    <span class="level-badge">Level 6</span>
+                </div>
+                <p>Digital Marketing Specialist | 7 years experience</p>
+                <a href="bhavy profile.html" class="call-button" style="text-decoration: none; display: inline-block;">View</a>
+            </div>
+        </div>
+
+        <!-- Right Panel - Chat System -->
+        <div class="right-panel">
+            <div class="chat-header">
+                <h2>
+                    <span class="online-indicator"></span>
+                    Live Community Chat
+                </h2>
+            </div>
+            
+            <div class="chat-messages">
+                <div class="message received">
+                    <div class="message-header">
+                        <img src="images/faizan.jpg" alt="Faizan">
+                        <strong>Faizan Pathan</strong>
+                    </div>
+                    <p>Hey everyone! Anyone free for a quick collaboration?</p>
+                    <div class="message-time">10:30 AM</div>
+                </div>
+
+                <div class="message received">
+                    <div class="message-header">
+                        <img src="images/bhavy.jpg" alt="Bhavy">
+                        <strong>Bhavy Pandya</strong>
+                    </div>
+                    <p>I'm available! What's the project about?</p>
+                    <div class="message-time">10:32 AM</div>
+                </div>
+
+                <div class="message sent">
+                    <p>I'm interested too! Is it a web development project?</p>
+                    <div class="message-time">10:33 AM</div>
+                </div>
+
+                <div class="message received">
+                    <div class="message-header">
+                        <img src="images/saiyoni.jpg" alt="Saiyoni">
+                        <strong>Saiyoni Shah</strong>
+                    </div>
+                    <p>Count me in! I can help with the UI/UX design if needed.</p>
+                    <div class="message-time">10:35 AM</div>
+                </div>
+
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+
+            <div class="message-input-container">
+                <div class="message-input">
+                    <input type="text" placeholder="Type your message..." id="messageInput">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add functionality to call buttons
+        document.querySelectorAll('.call-button').forEach(button => {
+            button.addEventListener('click', () => {
+                if(button.textContent === 'Start Call') {
+                    alert('Initiating call...');
+                }
+            });
+        });
+
+        // Add functionality to chat groups
+        document.querySelectorAll('.chat-group').forEach(group => {
+            group.addEventListener('click', () => {
+                alert(`Joining ${group.querySelector('h3').textContent} group chat`);
+            });
+        });
+
+        // Chat functionality
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const chatMessages = document.querySelector('.chat-messages');
+                const newMessage = document.createElement('div');
+                newMessage.className = 'message sent';
+                
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                newMessage.innerHTML = `
+                    <p>${message}</p>
+                    <div class="message-time">${time}</div>
+                `;
+                
+                chatMessages.insertBefore(newMessage, document.querySelector('.typing-indicator'));
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                input.value = '';
+            }
+        }
+
+        // Allow sending message with Enter key
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
