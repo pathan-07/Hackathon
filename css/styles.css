@@ -601,6 +601,23 @@ body {
     animation-fill-mode: both;
 }
 
+/* Add this CSS for the community link */
+.nav-categories .community-link {
+    color: var(--color-gray-600);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-categories .community-link:hover {
+    color: var(--color-primary);
+}
+
+.nav-categories .community-link.active {
+    color: var(--color-primary);
+}
+
 .category-link {
     color: #333;
     text-decoration: none;
@@ -635,6 +652,86 @@ body {
 }
 
 .category-link:hover::after {
+    width: 100%;
+}
+
+/* Update the community link styles to match category links */
+.nav-categories .community-link {
+    color: #333;  /* Match the category-link color */
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    animation: fadeInUp 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.nav-categories .community-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000;  /* Match the category-link underline color */
+    transition: width 0.3s ease;
+}
+
+.nav-categories .community-link:hover {
+    color: #000;  /* Match the category-link hover color */
+}
+
+.nav-categories .community-link:hover::after {
+    width: 100%;
+}
+
+.nav-categories .community-link.active {
+    color: #000;  /* Match the category-link active color */
+}
+
+.nav-categories .community-link.active::after {
+    width: 100%;
+}
+
+/* Update the community link styles to match category links */
+.nav-categories .community-link {
+    color: #333;  /* Match the category-link color */
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    animation: fadeInUp 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.nav-categories .community-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #000;  /* Match the category-link underline color */
+    transition: width 0.3s ease;
+}
+
+.nav-categories .community-link:hover {
+    color: #000;  /* Match the category-link hover color */
+}
+
+.nav-categories .community-link:hover::after {
+    width: 100%;
+}
+
+.nav-categories .community-link.active {
+    color: #000;  /* Match the category-link active color */
+}
+
+.nav-categories .community-link.active::after {
     width: 100%;
 }
 
